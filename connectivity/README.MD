@@ -6,6 +6,7 @@
 
 - [data_connection_checker](https://pub.dev/packages/data_connection_checker)
 - [connectivity](https://pub.dev/packages/connectivity)
+- [provider](https://pub.dev/packages/provider)
 
 ### main.dart
 
