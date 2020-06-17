@@ -9,49 +9,57 @@
 
 ### main.dart
 
-`Widget build(BuildContext context) {`
-`return StreamProvider<ConnectionStatus>.value(`
-`value: ConnectivityService().connectivityController.stream,`
-`child: StreamProvider<DataConnectionStatus>.value(`
-`value: DataConnectionService().dataConnectionStatusController.stream,`
-`child: MaterialApp()`
-`)`
-`);`
-`}`
+```dart
+Widget build(BuildContext context) {
+  return StreamProvider<ConnectionStatus>.value(
+      value: ConnectivityService().connectivityController.stream,
+      child: StreamProvider<DataConnectionStatus>.value(
+          value: DataConnectionService().dataConnectionStatusController.stream,
+          child: MaterialApp()));
+}
+```
 
 ### Iniitilization
 
-`ConnectionStatus connectionStatus;`
-`DataConnectionStatus dataConnectionStatus;`
-`GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>(); //this is optional if you want to use the error snackBar`
-`initializeConnection() {`
-`connectionStatus = Provider.of<ConnectionStatus>(context);`
-`dataConnectionStatus = Provider.of<DataConnectionStatus>(context);`
-`}`
-`Widget build(BuildContext context) {`
-`initializeConnection();`
-`return Scaffold(`
-`key: _scaffoldKey`
-`)`
-`)`
-`}`
+```dart
+ConnectionStatus connectionStatus;
+DataConnectionStatus dataConnectionStatus;
+GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<
+    ScaffoldState>(); //this is optional if you want to use the error snackBar
+initializeConnection() {
+  connectionStatus = Provider.of<ConnectionStatus>(context);
+  dataConnectionStatus = Provider.of<DataConnectionStatus>(context);
+}
+
+Widget build(BuildContext context) {
+  initializeConnection();
+  return Scaffold(key: _scaffoldKey);
+}
+```
 
 ### Example 1 - with snackBar
 
-`if (connectivityHandeler(`
-`scaffoldKey: _scaffoldKey_,`
-`connectionStatus: connectionStatus,`
-`dataConnectionStatus:` `dataConnectionStatus)){`
-`//Your function`
-`}`
+```dart
+if (connectivityHandeler(
+  scaffoldKey: _scaffoldKey_,
+  connectionStatus: connectionStatus,
+  dataConnectionStatus: dataConnectionStatus)){
+  //Your function
+}
+```
 
 ### Example 2 - without snackBar
 
-`AnimatedOpacity(`
-`duration: Duration(milliseconds: 300),`
-`opacity: connectivityHandeler(`
-`connectionStatus: connectionStatus,`
-`dataConnectionStatus:` `dataConnectionStatus)`
-`? 1`
-`: 0.25,`
-`)`
+```dart
+AnimatedOpacity(
+	opacity: connectivityHandeler(
+			scaffoldKey: null,
+			connectionStatus: connectionStatus,
+			dataConnectionStatus: dataConnectionStatus)
+		? 1
+		: 0.25,
+	duration: Duration(milliseconds: 300),
+	child:Text("Hii"),
+)
+
+```
