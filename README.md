@@ -1,4 +1,4 @@
-# fLUTTER sNIPETS
+# Flutter Snippets
 
 ## Table of Contents
 
