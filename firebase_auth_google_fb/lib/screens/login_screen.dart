@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_dsc/screens/translator.dart';
 import 'package:project_dsc/sign_in.dart';
 import 'home_screen.dart';
 
@@ -20,6 +19,9 @@ class _LoginScreenState extends State<LoginScreen> {
           Center(
             child: Column(
               children: <Widget>[
+                SizedBox(
+                  height: 150,
+                ),
                 OutlineButton(
                   onPressed: () {
                     signInWithGoogle().whenComplete(
@@ -31,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                   highlightElevation: 0,
+                  color: Colors.grey,
                   borderSide: BorderSide(color: Colors.grey),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
