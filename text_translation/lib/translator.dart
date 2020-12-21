@@ -27,7 +27,18 @@ class _TranslationState extends State<Translation> {
     super.dispose();
   }
 
-  void onPressed() async {
+  void spanishToEnglish() async {
+    inputText = inputTextController.text;
+    var result = await FirebaseLanguage.instance
+        .languageTranslator(
+            SupportedLanguages.Spanish, SupportedLanguages.English)
+        .processText(inputText);
+    setState(() {
+      translatedText = result;
+    });
+  }
+
+  void englishToSpanish() async {
     inputText = inputTextController.text;
     var result = await FirebaseLanguage.instance
         .languageTranslator(
@@ -38,7 +49,7 @@ class _TranslationState extends State<Translation> {
     });
   }
 
-  void onPoked() async {
+  void identifyLanguage() async {
     inputText = inputTextController.text;
     var result = await FirebaseLanguage.instance
         .languageIdentifier()
@@ -48,6 +59,9 @@ class _TranslationState extends State<Translation> {
       identifiedLang = result[0].languageCode; //returns most probable
     });
   }
+
+  Color buttonColor = Colors.red[300];
+  Color textboxColor = Colors.white12;
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +75,7 @@ class _TranslationState extends State<Translation> {
                 padding: const EdgeInsets.symmetric(horizontal: 70),
                 child: TextField(
                   controller: inputTextController,
+                  cursorColor: Colors.white,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Your Text Here',
@@ -68,33 +83,49 @@ class _TranslationState extends State<Translation> {
                 ),
               ),
               SizedBox(height: 50),
-              RaisedButton(
-                  child:
-                      Text("Translate", style: TextStyle(color: Colors.white)),
-                  color: Colors.blue,
-                  onPressed: onPressed),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  RaisedButton(
+                    child: Text("Spanish to English",
+                        style: TextStyle(color: Colors.white)),
+                    color: buttonColor,
+                    onPressed: spanishToEnglish,
+                  ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  RaisedButton(
+                    child: Text("English to Spansih",
+                        style: TextStyle(color: Colors.white)),
+                    color: buttonColor,
+                    onPressed: englishToSpanish,
+                  ),
+                ],
+              ),
               SizedBox(height: 25),
               Container(
                 width: 200,
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(17),
                 child: Center(child: Text(translatedText)),
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.05),
+                  color: textboxColor,
                 ),
               ),
               SizedBox(height: 20),
               RaisedButton(
-                  child: Text("Identify Language",
-                      style: TextStyle(color: Colors.white)),
-                  color: Colors.blue,
-                  onPressed: onPoked),
+                child: Text("Identify Language",
+                    style: TextStyle(color: Colors.white)),
+                color: buttonColor,
+                onPressed: identifyLanguage,
+              ),
               SizedBox(height: 25),
               Container(
                 width: 200,
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(17),
                 child: Center(child: Text(identifiedLang)),
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.05),
+                  color: textboxColor,
                 ),
               ),
             ],

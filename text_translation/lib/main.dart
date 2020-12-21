@@ -9,7 +9,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark(),
+      theme: ThemeData.dark().copyWith(
+        primaryColorDark: Colors.red[300],
+      ),
       initialRoute: Translation.id,
       routes: {
         Translation.id: (context) => Translation(),
