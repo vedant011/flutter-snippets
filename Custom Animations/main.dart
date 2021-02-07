@@ -19,11 +19,11 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     controller =
-        AnimationController(duration: const Duration(seconds: 10), vsync: this);
-    animation = CurvedAnimation(parent: controller, curve: Curves.slowMiddle)
+        AnimationController(duration: const Duration(seconds: 5), vsync: this);
+    animation = CurvedAnimation(parent: controller, curve: Curves.easeInQuad)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          controller.reverse();
+          controller.reset();
         } else if (status == AnimationStatus.dismissed) {
           controller.forward();
         }
